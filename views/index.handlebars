@@ -1,0 +1,66 @@
+<div class="container">
+    
+    
+    <div class="jumbotron">
+        <h1>Eat-Da-Burgers!!!</h1>
+        <panel class="background">
+            <form class="create-form">
+                <div class="form-group">
+                    <label for="newburger"></label>
+                    <input type="text" id="newburger" name="burger">
+                    <button type="submit" class="btn btn-success" id="addburger">
+                        <span class="fa fa-thumbs-up"></span>
+                    </button>
+                </div>
+            </form>
+        </panel>
+    </div>
+    
+    <div class="row">
+        
+        <div class="col-sm-6">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading" id="leftside">Order Your Burger</div>
+                
+                <div class="panel-body">
+
+                    <ul>
+                        {{!-- {{#each burgers}}
+                            {{#unless devoured}}
+                                <span><strong> {{this.id}} - {{this.burger_name}} </strong></span>
+                                <button type="button" class="eatburger btn btn-warning" id="eatbutton" data-id="{{this.id}}" data-newDevoured="{{devour}}"><span class="fa fa-usd"></span></button>   
+                            {{/unless}}
+                        {{/each}} --}}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading" id="rightside">Devour the Burger</div>
+                
+                <div class="panel-body">
+
+                    <ul>
+                        {{!-- {{#each burgers}}
+                            {{#if devoured}}
+                                <span><strong> {{this.id}} - {{this.burger_name}} </strong></span>
+                                <button type="button" class="trashburger btn btn-warning" id="trashbutton" data-id="{{this.id}}" data-newDevoured="{{devour}}"><span class="fa fa-trash"></span></button>   
+                            {{/if}}
+                        {{/each}} --}}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    {{!-- end of container class --}}
+</div>
