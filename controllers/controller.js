@@ -4,11 +4,14 @@ var scraper = require('../models/scrape')
 var router = express.Router();
 
 router.get("/", function(req,res){
-    var hdbrsObj = {
+    scraper.selectAll(function(data){
+      var hdbrsObj = {
         scrape: data
     }
     console.log(hdbrsObj)
-    res.render("index", hdbrsObj)
+    res.render("index", hdbrsObj)  
+    });
+    
 })
 
 
