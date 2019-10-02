@@ -14,6 +14,7 @@ var app = express();
 // Require all models
 var db = require("./models");
 
+require('dotenv').config()
 
 var PORT = process.env.PORT || 3000;
 
@@ -36,7 +37,7 @@ app.use(logger("dev"));
 
 ///////////////// For Web Scraping
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
 // Routes
 app.get('/',(req,res)=>{
