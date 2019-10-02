@@ -7,6 +7,13 @@ $.getJSON("/articles", function(data) {
     }
   });
   
+  $("#search").on("click", ()=>{
+    $.get("/scrape")
+    .then((data)=>{
+      window.reload();
+    })
+  })
+
   
   // Whenever someone clicks a p tag
   $(document).on("click", "p", function() {

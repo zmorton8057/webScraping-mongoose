@@ -7,9 +7,8 @@
             <form class="create-form">
                 <div class="form-group">
                     <label for="newburger"></label>
-                    <input type="text" id="newburger" name="burger">
-                    <button type="submit" class="btn btn-success" id="addburger">
-                        <span class="fa fa-thumbs-up"></span>
+                    <button type="submit" class="btn btn-success" id="search">
+                        <span class="fa fa-search"></span>
                     </button>
                 </div>
             </form>
@@ -47,12 +46,10 @@
 
                     <ul>
                         <div id="notes"></div>
-                        {{!-- {{#each burgers}}
-                            {{#if devoured}}
-                                <span><strong> {{this.id}} - {{this.burger_name}} </strong></span>
-                                <button type="button" class="trashburger btn btn-warning" id="trashbutton" data-id="{{this.id}}" data-newDevoured="{{devour}}"><span class="fa fa-trash"></span></button>   
-                            {{/if}}
-                        {{/each}} --}}
+                        {{#each articles}}
+                            
+                              <a href="{{this.link}}">{{this.title}}</a>
+                        {{/each}}
                     </ul>
 
                 </div>

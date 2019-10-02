@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var logger = require("morgan");
 var mongoose = require("mongoose");
+const orm = require('./config/orm')
 
 var axios = require("axios");
 var cheerio = require("cheerio");
@@ -12,6 +13,7 @@ var app = express();
 
 // Require all models
 var db = require("./models");
+
 
 var PORT = process.env.PORT || 3000;
 
@@ -37,26 +39,36 @@ app.use(logger("dev"));
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
 // Routes
+app.get('/',(req,res)=>{
+orm.selectAll('articles',(data)=>{
+  console.log(data)
+res.render('index',{articles:data})
+})
+})
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
     // First, we grab the body of the html with axios
-    axios.get("http://www..gameinformer.com//").then(function (response) {
+    axios.get("http://www.gamesradar.com//").then(function (response) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(response.data);
   
       // Now, we grab every h2 within an article tag, and do the following:
-      $("article-title-page h2").each(function (i, element) {
+      $(".feature-block-item-wrapper").each(function (i, element) {
         // Save an empty result object
-        var result = {};
-  
+        var result = [];
+        
         // Add the text and href of every link, and save them as properties of the result object
-        result.title = $(this)
-          .children("div")
-          .text();
-        result.link = $(this)
-          .children("div")
-          .attr("href");
+        const title = $(element).find(".article-name").text()
+        const link =  $(element).find(".article-link").attr('href')
+        const author = $(element).find(".by-author").html()
+        
+        // Save these results in an object that we'll push into the results array we defined earlier
+        result.push({
+          title: title,
+          link: link,
+          author: author
+        });
   
         // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
