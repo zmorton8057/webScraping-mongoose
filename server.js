@@ -54,14 +54,14 @@ app.get("/scrape", function (req, res) {
       var $ = cheerio.load(response.data);
   
       // Now, we grab every h2 within an article tag, and do the following:
-      $(".feature-block-item-wrapper").each(function (i, element) {
+      $(".listingResult").each(function (i, element) {
         // Save an empty result object
         var result = [];
         
         // Add the text and href of every link, and save them as properties of the result object
         const title = $(element).find(".article-name").text()
         const link =  $(element).find(".article-link").attr('href')
-        const author = $(element).find(".by-author").html()
+        const author = $(element).find(".by-author").children('span').text().replace(/(\r\n|\n|\r)/gm, "")
         
         // Save these results in an object that we'll push into the results array we defined earlier
         result.push({
