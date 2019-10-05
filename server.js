@@ -1,36 +1,37 @@
 const express = require('express');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var logger = require("morgan");
 var mongoose = require("mongoose");
-const orm = require('./config/orm')
+// const orm = require('./config/orm')
 
 var axios = require("axios");
 var cheerio = require("cheerio");
 
 
 var app = express();
-
+/////////// For Express API routes to display as JSON
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 // Require all models
 var db = require("./models");
 
-require('dotenv').config()
+// require('dotenv').config()
 
 var PORT = process.env.PORT || 3000;
 
 
+
 app.use(express.static('public'));
 
-/////////// For Express API routes to display as JSON
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+
 
 /////////// For Handlebars
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
-var routes = require("./controllers/controller");
-app.use(routes);
+// var routes = require("./controllers/controller");
+// app.use(routes);
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
@@ -42,7 +43,7 @@ mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost/unit18Populater"
 
 // Routes
 app.get('/',(req,res)=>{
-orm.selectAll('articles',(data)=>{
+db.Article.find({},(data)=>{
   console.log(data)
 res.render('index',{articles:data})
 })
